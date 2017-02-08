@@ -70,6 +70,7 @@ public class StoredPlaylistDataBinder extends BaseDataBinder {
         final Music music = (Music) item;
         String artist = music.getArtist();
         String album = music.getAlbum();
+        String name = music.getName();
 
         if (Tools.isStringEmptyOrNull(artist)) {
             artist = null;
@@ -89,7 +90,14 @@ public class StoredPlaylistDataBinder extends BaseDataBinder {
             }
         }
 
-        holder.mName.setText(music.getTitle());
+        if( artist == null && album == null && name != null )
+        {
+            holder.mName.setText(name);
+            info = music.getFullPath();
+        }
+        else
+            holder.mName.setText(music.getTitle());
+
         if (Tools.isStringEmptyOrNull(info)) {
             holder.mInfo.setVisibility(View.GONE);
         } else {
